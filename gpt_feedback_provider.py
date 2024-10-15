@@ -1,7 +1,7 @@
 import openai
 
 class GPTFeedbackProvider:
-    def __init__(self, api_key, model="gpt-4o-mini"):
+    def __init__(self, api_key, model="gpt-4o"):
         self.api_key = api_key
         self.model = model
         openai.api_key = self.api_key
@@ -22,7 +22,7 @@ class GPTFeedbackProvider:
         - Best practices that are not being followed and how to implement them.
         - Suggestions for refactoring the code for clarity or efficiency.
         - Explanations of key Java concepts for a beginner to learn from.
-        - Recommend further reading materials or learning resources relevant to improving Java programming skills.
+        - Overall feedback.
 
         Be encouraging and constructive, providing helpful advice that a beginner can understand and act on.
         """

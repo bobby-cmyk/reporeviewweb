@@ -39,7 +39,7 @@ def print_formatted_feedback(feedback):
 
 if __name__ == "__main__":
     # Input repository URL from the terminal
-    print(">>> Welcome to RepoReview!")
+    print(">>> Welcome to RepoReview!\n")
     repo_url = input(">>> Enter the GitHub repository URL: ")
 
     # Extract owner and repo from the URL

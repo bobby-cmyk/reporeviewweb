@@ -18,7 +18,7 @@ class GitHubRepoReader:
     def get_file_tree(self):
         """Fetches the file tree of the repository recursively"""
 
-        print(">>> Fetching directory structure of repository\n")
+        print("\n>>> Fetching directory structure of repository\n")
 
         url = f"{self.base_url}/git/trees/{self.ref}?recursive=1"
         response = requests.get(url, headers=self.headers)
@@ -32,7 +32,9 @@ class GitHubRepoReader:
     def fetch_file_content(self, file_path):
         """Fetches the content of a file from the GitHub repository"""
 
-        print(">>> Reading your java code in %s\n",file_path)
+        file_name = file_path.split('/')[-1]
+
+        print(">>> Reading your java code in {}\n".format(file_name))
 
         url = f"{self.base_url}/contents/{file_path}"
         response = requests.get(url, headers=self.headers, params={"ref": self.ref})
