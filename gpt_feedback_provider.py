@@ -1,15 +1,12 @@
 import openai
-import time
 
 class GPTFeedbackProvider:
-    def __init__(self, api_key, model="gpt-4o-mini"):
+    def __init__(self, api_key, model="gpt-4o"):
         self.api_key = api_key
         self.model = model
         openai.api_key = self.api_key
 
     def get_feedback(self, directory_structure, java_files_content):
-        model = self.model
-
         """
         Sends the directory structure and Java file content to the GPT model for feedback.
         Returns the feedback from GPT.
@@ -30,9 +27,8 @@ class GPTFeedbackProvider:
         Be encouraging and constructive, providing helpful advice that a beginner can understand and act on.
         """
 
-        print(">>> Hold tight! GPT is reviewing your work... (May take up to a minute)\n")
+        print(">>> Hold tight! GPT is reviewing your work...\n")
 
-        start_time = time.time()
         # Use OpenAI API to send the content to GPT
         response = openai.chat.completions.create(
             model=self.model,
@@ -42,9 +38,6 @@ class GPTFeedbackProvider:
             ]
         )
 
-        end_time = time.time()  # End time measurement
-        duration = end_time - start_time  # Calculate the time taken
-        
         # Extract and return GPT's feedback
         feedback = response.choices[0].message.content
-        return feedback, model, duration
+        return feedback
