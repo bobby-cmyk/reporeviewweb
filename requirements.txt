@@ -3,5 +3,3 @@ openai
 requests
 python-dotenv
 uvicorn
-python-multipart
-mangum
