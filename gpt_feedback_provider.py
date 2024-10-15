@@ -27,7 +27,7 @@ class GPTFeedbackProvider:
         Be encouraging and constructive, providing helpful advice that a beginner can understand and act on.
         """
 
-        print(">>> Hold tight! GPT is reviewing your work...\n")
+        print(">>> Hold tight! GPT is reviewing your work... (May take up to a minute)\n")
 
         # Use OpenAI API to send the content to GPT
         response = openai.chat.completions.create(
