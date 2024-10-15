@@ -41,32 +41,33 @@
     </form>
 
 
-  <script>
-    const form = document.getElementById('repoForm');
-    const output = document.getElementById('output');
-
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const formData = new FormData(form);
+    <script>
+        const form = document.getElementById('repoForm');
+        const output = document.getElementById('output');
       
-      try {
-        output.textContent = ">>> Analyzing the repository...";
-        const response = await fetch('/api/analyze', {
-          method: 'POST',
-          body: formData
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();  // Prevent form from submitting the traditional way
+          const formData = new FormData(form);
+          
+          try {
+            output.textContent = ">>> Analyzing the repository...";
+            const response = await fetch('/api/analyze', {
+              method: 'POST',
+              body: formData
+            });
+      
+            const data = await response.json();
+            
+            if (data.feedback) {
+              output.textContent = `Model: ${data.model}\nTime taken: ${data.duration} seconds\n\n${data.feedback}`;
+            } else if (data.error) {
+              output.textContent = `Error: ${data.error}`;
+            }
+          } catch (error) {
+            output.textContent = `Error: ${error}`;
+          }
         });
-
-        const data = await response.json();
-        
-        if (data.feedback) {
-          output.textContent = `Model: ${data.model}\nTime taken: ${data.duration} seconds\n\n${data.feedback}`;
-        } else if (data.error) {
-          output.textContent = `Error: ${data.error}`;
-        }
-      } catch (error) {
-        output.textContent = `Error: ${error}`;
-      }
-    });
-  </script>
+    </script>
+    
 </body>
 </html>

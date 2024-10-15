@@ -3,8 +3,18 @@ from pydantic import BaseModel
 import requests
 import time
 from mangum import Mangum  # Add this import
+import logging
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 app = FastAPI()
+
+# Serve static files from the "static" directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Pydantic model for the response structure
 class RepoAnalysisResponse(BaseModel):
@@ -13,9 +23,14 @@ class RepoAnalysisResponse(BaseModel):
     feedback: str
     error: str = None
 
+@app.get("/")
+def read_root():
+    return RedirectResponse(url='/static/index.html')
+
 # Change the route to '/'
-@app.post("/")
+@app.post("/api/analyze")
 async def analyze_repo(github_url: str = Form(...)) -> RepoAnalysisResponse:
+    logger.info(f"Received request with github_url: {github_url}")
     start_time = time.time()
     
     try:
