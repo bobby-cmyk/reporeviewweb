@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 from github_repo_reader import GitHubRepoReader
 from gpt_feedback_provider import GPTFeedbackProvider  # Import the GPTFeedbackProvider class
 import textwrap
+import re
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -18,8 +20,24 @@ def extract_owner_and_repo(github_url):
         return owner, repo
     else:
         raise ValueError("Invalid GitHub URL format. Expected format: https://github.com/owner/repo")
+
+def underline_format(match):
+    """Replace ### Header with ANSI underline formatting"""
+    header = match.group(1)  # Get the header text after ###
+    return f"\033[4m{header}\033[0m" 
+
+def bold_format(match):
+    """Replace **word** with ANSI bold formatting"""
+    word = match.group(1)  # Get the word between ** **
+    return f"\033[1m{word}\033[0m"  
     
 def print_formatted_feedback(feedback):
+
+    feedback = re.sub(r"\*\*(.*?)\*\*", bold_format, feedback)
+
+    # Use regex to replace ### Header with underlined formatting
+    feedback = re.sub(r"### (.+)", underline_format, feedback)
+
     # Set the width for text wrapping (e.g., 80 characters per line)
     wrapper = textwrap.TextWrapper(width=80)
 
