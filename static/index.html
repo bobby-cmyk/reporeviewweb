@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RepoReview</title>
+  <title>GitHub Repo Analyzer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,14 +32,14 @@
   </style>
 </head>
 <body>
-  <h1>RepoReview</h1>
-  <form id="repoForm">
-    <label for="github_url">Enter GitHub Repository URL:</label>
-    <input type="url" id="github_url" name="github_url" placeholder="https://github.com/username/repo" required>
-    <button type="submit">Get Feedback!</button>
-  </form>
+  <h1>GitHub Repo Analyzer</h1>
 
-  <div id="output"></div>
+    <form id="repoForm" action="/api/analyze" method="POST">
+        <label for="github_url">Enter GitHub Repository URL:</label>
+        <input type="url" id="github_url" name="github_url" placeholder="https://github.com/username/repo" required>
+        <button type="submit">Analyze</button>
+    </form>
+
 
   <script>
     const form = document.getElementById('repoForm');
