@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RepoReview</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Welcome to RepoReview!</h1>
+    <form id="repoForm" method="POST">
+        <label for="repo_url">Enter the GitHub repository URL:</label>
+        <input type="text" id="repo_url" name="repo_url" required>
+        <button type="submit">Review Repository</button>
+    </form>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+    
+    <div id="loadingContainer" style="display: none;">
+        <div class="loading-spinner"></div>
+        <h2>Analyzing Repository...</h2>
+        <ul id="steps"></ul>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
